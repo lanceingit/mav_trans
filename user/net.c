@@ -27,11 +27,11 @@ bool net_is_creat(void)
 void ICACHE_FLASH_ATTR net_send(uint8_t* pdata, uint8_t len)
 {
 	if(is_net_creat) {
-		os_printf("[tcp][send]");
-		for(uint16_t i=0; i<len; i++) {
-			os_printf("%02x ", pdata[i]);
-		}
-		os_printf("\n");	
+		// os_printf("[tcp][send]");
+		// for(uint16_t i=0; i<len; i++) {
+		// 	os_printf("%02x ", pdata[i]);
+		// }
+		// os_printf("\n");	
 		memcpy(server_conn.proto.udp->remote_ip, server_ip, 4);
 		server_conn.proto.udp->remote_port = SERVER_PORT;  	
 		s16 ret = espconn_send(&server_conn, pdata, len);
@@ -52,7 +52,7 @@ void ICACHE_FLASH_ATTR tcp_recv_cb(void *arg, char *pdata, unsigned short len)
 
 void ICACHE_FLASH_ATTR tcp_send_cb(void *arg)  
 {
-	os_printf("tcp send success!\n");
+	//os_printf("tcp send success!\n");
 }
 
 void ICACHE_FLASH_ATTR tcp_disconnect_cb(void *arg)  

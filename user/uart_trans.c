@@ -316,7 +316,7 @@ uart_config(uint8 uart_no)
     //clear all interrupt
     WRITE_PERI_REG(UART_INT_CLR(uart_no), 0xffff);
     //enable rx_interrupt
-    SET_PERI_REG_MASK(UART_INT_ENA(uart_no), UART_RXFIFO_FULL_INT_ENA|UART_RXFIFO_OVF_INT_ENA);
+    SET_PERI_REG_MASK(UART_INT_ENA(uart_no), UART_RXFIFO_FULL_INT_ENA);
 }
 
 LOCAL void ICACHE_FLASH_ATTR ///////
@@ -374,13 +374,20 @@ void ICACHE_FLASH_ATTR uart_trans_update(void)
     uint8_t len = 0;
     len = rx_buff_deq(uart_buf, UART_READ_MAX);
 	if(len > 0) {
-		os_printf("uart recv(%d):", len);
-		for(uint16_t i=0; i<len; i++) {
-			os_printf("%02x ", uart_buf[i]);
-		}
-		os_printf("\n");
+		// os_printf("uart recv(%d):", len);
+		// for(uint16_t i=0; i<len; i++) {
+		// 	os_printf("%02x ", uart_buf[i]);
+		// }
+		// os_printf("\n");
 
-		net_send(uart_buf, len);
+		// for(uint16_t i=0; i<len; i++) {
+        //     if(uart_buf[i] == 0xFE) {
+        //         net_send(&uart_buf[i], uart_buf[i+1]+8);
+        //         //i = uart_buf[i+1]+8-1;
+        //     }
+        // }
+		
+        net_send(uart_buf, len);
 	}
 }
 
